@@ -15,10 +15,10 @@ GPIO.output(config.enablePin, GPIO.HIGH)
 
 # set direction
 GPIO.output(config.directionPinLeft, GPIO.LOW)
-GPIO.output(config.directionPinRight, GPIO.LOW)
+GPIO.output(config.directionPinRight, GPIO.HIGH)
 
 # loop
-for steps in range(800):
+for steps in range(2304):
     GPIO.output(config.pulsePin, GPIO.HIGH)
     sleep(0.004)
     GPIO.output(config.pulsePin, GPIO.LOW)

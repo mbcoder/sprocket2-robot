@@ -8,17 +8,12 @@ steps360 = 2281
 angle = int(sys.argv[1])
 print(angle)
 
-stepsNeeded = int((steps360/360)*angle)
+stepsNeeded = abs(int((steps360 / 360) * angle))
 
-print(stepsNeeded)
-
-if angle>0:
+if angle > 0:
     print("clockwise")
 else:
     print("anti cw")
 
-
 print(stepsNeeded)
 # work out direction of rotation (+ve = clockwise)
-
-

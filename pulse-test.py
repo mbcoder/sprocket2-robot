@@ -1,33 +1,28 @@
 import RPi.GPIO as GPIO
 from time import sleep
-
-# Pin Definitons:
-enablePin = 2
-directionPinLeft = 3
-directionPinRight = 17
-pulsePin = 4
+import config
 
 # setup gpio
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(enablePin, GPIO.OUT)
-GPIO.setup(directionPinLeft, GPIO.OUT)
-GPIO.setup(directionPinRight, GPIO.OUT)
-GPIO.setup(pulsePin, GPIO.OUT)
+GPIO.setup(config.enablePin, GPIO.OUT)
+GPIO.setup(config.directionPinLeft, GPIO.OUT)
+GPIO.setup(config.directionPinRight, GPIO.OUT)
+GPIO.setup(config.pulsePin, GPIO.OUT)
 
 # enable stepper
-GPIO.output(enablePin, GPIO.HIGH)
+GPIO.output(config.enablePin, GPIO.HIGH)
 
 # set direction
-GPIO.output(directionPinLeft, GPIO.LOW)
-GPIO.output(directionPinRight, GPIO.LOW)
+GPIO.output(config.directionPinLeft, GPIO.LOW)
+GPIO.output(config.directionPinRight, GPIO.LOW)
 
 # loop
 for steps in range(800):
-    GPIO.output(pulsePin, GPIO.HIGH)
+    GPIO.output(config.pulsePin, GPIO.HIGH)
     sleep(0.004)
-    GPIO.output(pulsePin, GPIO.LOW)
+    GPIO.output(config.pulsePin, GPIO.LOW)
     sleep(0.004)
 
 # disable stepper
-GPIO.output(enablePin, GPIO.LOW)
+GPIO.output(config.enablePin, GPIO.LOW)

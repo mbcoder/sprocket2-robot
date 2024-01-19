@@ -1,6 +1,9 @@
+import sys
 import RPi.GPIO as GPIO
 from time import sleep
 import config
+
+pulses = int(sys.argv[1])
 
 # setup gpio
 GPIO.setwarnings(False)
@@ -18,7 +21,7 @@ GPIO.output(config.directionPinLeft, GPIO.HIGH)
 GPIO.output(config.directionPinRight, GPIO.HIGH)
 
 # loop
-for steps in range(2304):
+for steps in range(pulses):
     GPIO.output(config.pulsePin, GPIO.HIGH)
     sleep(0.004)
     GPIO.output(config.pulsePin, GPIO.LOW)

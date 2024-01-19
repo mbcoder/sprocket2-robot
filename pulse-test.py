@@ -14,7 +14,7 @@ GPIO.setup(config.pulsePin, GPIO.OUT)
 GPIO.output(config.enablePin, GPIO.HIGH)
 
 # set direction
-GPIO.output(config.directionPinLeft, GPIO.LOW)
+GPIO.output(config.directionPinLeft, GPIO.HIGH)
 GPIO.output(config.directionPinRight, GPIO.HIGH)
 
 # loop

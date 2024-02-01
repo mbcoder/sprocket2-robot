@@ -27,24 +27,23 @@ public class CommandRunner {
 
   private final HttpRequest request;
 
-  public CommandRunner (HttpRequest req) {
-    request = req;
+  public CommandRunner (HttpRequest request) {
+    this.request = request;
   }
 
   public String execCommand() {
 
-    String[] validForwardCommand = {"bash",  "-c", "echo Success with forward"};
-    String[] invalidForwardCommand = {"bash",  "-c", "echo 'Failed (25)'"};
-    String[] validRotateCommand = {"bash",  "-c", "echo Success with rotation"};
+    final String[] validForwardCommand = {"bash",  "-c", "echo Success with forward"};
+    final String[] invalidForwardCommand = {"bash",  "-c", "echo 'Failed (25)'"};
+    final String[] validRotateCommand = {"bash",  "-c", "echo Success with rotation"};
 
     try {
-      System.out.println("exec");
-      System.out.println(request.getUri());
-      String[] commands = request.getUri().toString().split("[? ]");
-      if (commands.length >=2) {
-
+      // Expecting a command URL like  https://127.0.0.1:8080/testOne?forward=100
+      // Split this on question mark to isolate the part like "forward=100"
+      // If the command string has 100000 then fail the command to test failure paths
+      String[] commands = request.getUri().toString().split("\\?");
+      if (commands.length >= 2) {
         String command = commands[1];
-
         String [] execString;
         if (command.contains("forward")) {
           if (command.contains("100000")) {
@@ -56,31 +55,20 @@ public class CommandRunner {
           execString = validRotateCommand;
         }
 
-        Process compareImageProcess = Runtime.getRuntime().exec(execString);
+        Process runExternalProcess = Runtime.getRuntime().exec(execString);
 
-        System.out.println("wait...");
-        if (!compareImageProcess.waitFor(1, TimeUnit.MINUTES)) {
-          System.out.println("wait failed");
-          return "FAILED waitFor failure";
+        if (!runExternalProcess.waitFor(1, TimeUnit.MINUTES)) {
+          return "FAILED external process waitFor problem";
         }
 
-        try (var stdout = new BufferedReader(new InputStreamReader(compareImageProcess.getInputStream()))) {
-          var s = stdout.readLine();
-          if (s == null) {
-            try (var stderr = new BufferedReader(new InputStreamReader(compareImageProcess.getErrorStream()))) {
-              s = stderr.readLine();
-              System.out.println("Got err" + s);
-              return String.format("<HTML> <P>%s</P> </HTML>", s);
-            }
-
-          }
-          System.out.println("Got " + s);
-          return String.format("<HTML> <P>%s</P> </HTML>", s);
+        // Get the stdout of the process
+        try (var stdout = new BufferedReader(new InputStreamReader(runExternalProcess.getInputStream()))) {
+          var line = stdout.readLine();
+          return String.format("<HTML> <P>%s</P> </HTML>", line);
         }
       }
 
       return String.format("<HTML> <P> Invalid... %s</P> </HTML>", request.getUri().toString());
-
     } catch (IOException | InterruptedException e) {
       System.out.println("exception");
       return "FAILED " + e.getMessage();

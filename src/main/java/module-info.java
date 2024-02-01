@@ -21,4 +21,6 @@ module com.mycompany.app {
   requires org.slf4j.nop;
 
   exports com.mycompany.app;
+  exports com.mycompany.sockets.contract;
+  exports com.mycompany.sockets.pojos;
 }

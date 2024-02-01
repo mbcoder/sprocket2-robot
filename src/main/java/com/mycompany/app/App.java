@@ -16,6 +16,11 @@
 
 package com.mycompany.app;
 
+import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
 import com.esri.arcgisruntime.mapping.BasemapStyle;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
@@ -25,9 +30,18 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import com.mycompany.sockets.Server;
+import com.mycompany.sockets.pojos.HttpResponse;
+
+import static com.mycompany.sockets.contract.HttpMethod.GET;
+
 public class App extends Application {
 
     private MapView mapView;
+
+    private Server myServer;
+
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public static void main(String[] args) {
 
@@ -37,7 +51,8 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
 
-        // set the title and size of the stage and show it
+
+      // set the title and size of the stage and show it
         stage.setTitle("My Map App");
         stage.setWidth(800);
         stage.setHeight(700);
@@ -53,6 +68,8 @@ public class App extends Application {
         // If you haven't already, go to your developer dashboard to get your API key.
         // Please refer to https://developers.arcgis.com/java/get-started/ for more information
         String yourApiKey = "YOUR_API_KEY";
+        yourApiKey = System.getenv("API_KEY");
+        System.out.println(yourApiKey);
         ArcGISRuntimeEnvironment.setApiKey(yourApiKey);
 
         // create a MapView to display the map and add it to the stack pane
@@ -64,6 +81,29 @@ public class App extends Application {
 
         // display the map by setting the map on the map view
         mapView.setMap(map);
+
+
+      try {
+        System.out.println("Start server");
+        myServer = new Server(8080);
+        myServer.addRoute(GET, "/testOne",
+            (req) -> new HttpResponse.Builder()
+                .setStatusCode(200)
+                .addHeader("Content-Type", "text/html")
+                .setEntity(new CommandRunner(req))
+                .build());
+        executor.execute(() -> {
+          try {
+            System.out.println("Called start");
+            myServer.start();
+            System.out.println("Start exited");
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        });
+      } catch (Throwable e) {
+        System.out.println("Server failed: " + e.getMessage());
+      }
     }
 
     /**
@@ -71,9 +111,31 @@ public class App extends Application {
      */
     @Override
     public void stop() {
+      if (myServer != null) {
+        System.out.println("Stop the server");
+        myServer.stop();
+      }
 
         if (mapView != null) {
             mapView.dispose();
         }
+
+        executor.shutdown(); // Disable new tasks from being submitted
+        try {
+          // Wait a while for existing tasks to terminate
+          if (!executor.awaitTermination(6, TimeUnit.SECONDS)) {
+            executor.shutdownNow(); // Cancel currently executing tasks
+            // Wait a while for tasks to respond to being cancelled
+            if (!executor.awaitTermination(6, TimeUnit.SECONDS))
+              System.err.println("Pool did not terminate");
+          }
+        } catch (InterruptedException ex) {
+          // (Re-)Cancel if current thread also interrupted
+          executor.shutdownNow();
+          // Preserve interrupt status
+          Thread.currentThread().interrupt();
+        }
     }
 }
+
+

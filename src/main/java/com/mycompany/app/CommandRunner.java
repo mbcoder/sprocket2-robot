@@ -23,6 +23,9 @@ import java.util.concurrent.TimeUnit;
 
 import com.mycompany.sockets.pojos.HttpRequest;
 
+/**
+ * Run an external command based on a received HttpRequest.
+ */
 public class CommandRunner {
 
   private final HttpRequest request;
@@ -31,8 +34,14 @@ public class CommandRunner {
     this.request = request;
   }
 
+  /**
+   * Execute the external command based on the received HttpRequest.
+   *
+   * @return a response String to send back (will be sent via the socket)
+   */
   public String execCommand() {
 
+    // These will be replaced by a python command
     final String[] validForwardCommand = {"bash",  "-c", "echo Success with forward"};
     final String[] invalidForwardCommand = {"bash",  "-c", "echo 'Failed (25)'"};
     final String[] validRotateCommand = {"bash",  "-c", "echo Success with rotation"};

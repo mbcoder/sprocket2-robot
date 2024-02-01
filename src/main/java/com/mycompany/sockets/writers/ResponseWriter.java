@@ -63,7 +63,7 @@ public class ResponseWriter {
     }
 
     private static Optional<String> getResponseString(final Object entity) {
-        // Currently only supporting Strings
+        // Currently only supporting Strings and CommandRunner
         if (entity instanceof String) {
             try {
                 return Optional.of(entity.toString());

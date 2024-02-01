@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  *
  * Adapted from examples in Robert Finn's article: https://rjlfinn.medium.com/creating-a-http-server-in-java-9b6af7f9b3cd
- * and code from Robert Finn's associated github repo:https://github.com/rjlfinn/java-http-server
+ * and code from Robert Finn's associated GitHub repo:https://github.com/rjlfinn/java-http-server
  */
 public class Server {
 

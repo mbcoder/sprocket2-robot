@@ -3,7 +3,7 @@
 # http://picamera.readthedocs.io/en/latest/recipes2.html#web-streaming
 
 import io
-import picamera
+import picamera2
 import logging
 import socketserver
 from threading import Condition

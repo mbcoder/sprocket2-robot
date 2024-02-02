@@ -34,8 +34,7 @@ import com.mycompany.sockets.http.HttpHandler;
  *  - Non-blocking ( Investigate Java NIO - new IO, Netty uses this? )
  *
  *
- * Adapted from examples in Robert Finn's article: https://rjlfinn.medium
- * .com/creating-a-http-server-in-java-9b6af7f9b3cd
+ * Adapted from examples in Robert Finn's article: https://rjlfinn.medium.com/creating-a-http-server-in-java-9b6af7f9b3cd
  * and code from Robert Finn's associated GitHub repo:https://github.com/rjlfinn/java-http-server
  *
  * Secure socket ideas taken from: https://stackoverflow.com/questions/2308479/simple-java-https-server

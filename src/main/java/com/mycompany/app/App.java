@@ -21,10 +21,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
-import com.esri.arcgisruntime.mapping.BasemapStyle;
-import com.esri.arcgisruntime.mapping.ArcGISMap;
-import com.esri.arcgisruntime.mapping.view.MapView;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -40,7 +36,7 @@ import static com.mycompany.sockets.contract.HttpMethod.GET;
 
 public class App extends Application {
 
-  private MapView mapView;
+
 
   private final HBox hBox = new HBox();
 
@@ -66,17 +62,7 @@ public class App extends Application {
     Scene scene = new Scene(stackPane);
     stage.setScene(scene);
 
-    // Note: it is not best practice to store API keys in source code.
-    // An API key is required to enable access to services, web maps, and web scenes hosted in ArcGIS Online.
-    // If you haven't already, go to your developer dashboard to get your API key.
-    // Please refer to https://developers.arcgis.com/java/get-started/ for more information
-    String yourApiKey = "YOUR_API_KEY";
-//    yourApiKey = System.getenv("API_KEY");
-    ArcGISRuntimeEnvironment.setApiKey(yourApiKey);
 
-    // create a MapView to display the map and add it to the stack pane
-    mapView = new MapView();
-    stackPane.getChildren().add(mapView);
 
     Button nonSslServer = new Button("Not SSL");
     nonSslServer.setOnAction((e) -> startServer(false));
@@ -87,11 +73,6 @@ public class App extends Application {
     hBox.getChildren().addAll(nonSslServer, sslServer);
     stackPane.getChildren().add(hBox);
 
-    // create an ArcGISMap with an imagery basemap
-    ArcGISMap map = new ArcGISMap(BasemapStyle.ARCGIS_IMAGERY);
-
-    // display the map by setting the map on the map view
-    mapView.setMap(map);
   }
 
   /**
@@ -132,9 +113,6 @@ public class App extends Application {
       connectionServer.stop();
     }
 
-    if (mapView != null) {
-      mapView.dispose();
-    }
 
     // Ensure threads are stopped to allow app to exit
     executor.shutdown(); // Disable new tasks from being submitted

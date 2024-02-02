@@ -16,9 +16,10 @@
 
 module com.mycompany.app {
   // modules required by the app
-  requires com.esri.arcgisruntime;
+  //requires com.esri.arcgisruntime;
   requires javafx.graphics;
   requires org.slf4j.nop;
+  requires javafx.controls;
 
   exports com.mycompany.app;
   exports com.mycompany.sockets.contract;

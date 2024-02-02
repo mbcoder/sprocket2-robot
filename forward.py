@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 from time import sleep
 import config
 
-steps1000mm = 3184
+steps1000mm = 879 #3184
 
 distance = int(sys.argv[1])
 print(distance)
@@ -30,9 +30,9 @@ print(stepsNeeded)
 # loop
 for steps in range(stepsNeeded):
     GPIO.output(config.pulsePin, GPIO.HIGH)
-    sleep(0.004)
+    sleep(0.010)
     GPIO.output(config.pulsePin, GPIO.LOW)
-    sleep(0.004)
+    sleep(0.010)
 
 # disable stepper
 GPIO.output(config.enablePin, GPIO.LOW)

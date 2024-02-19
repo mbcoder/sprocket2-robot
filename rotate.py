@@ -7,12 +7,12 @@ import stepper
 steps360 = 1360
 
 angle = int(sys.argv[1])
-print(angle)
+# print(angle)
 
 stepsNeeded = abs(int((steps360 / 360) * angle))
 
-duration = stepper.duration(1280,3)
-print ("duration = ", duration)
+# duration = stepper.duration(1280,3)
+# print ("duration = ", duration)
 
 # setup gpio
 GPIO.setwarnings(False)
@@ -27,15 +27,15 @@ GPIO.output(config.enablePin, GPIO.HIGH)
 
 # work out direction of rotation (+ve = clockwise)
 if angle > 0:
-    print("clockwise")
+    # print("clockwise")
     GPIO.output(config.directionPinLeft, GPIO.HIGH)
     GPIO.output(config.directionPinRight, GPIO.HIGH)
 else:
-    print("anti cw")
+    # print("anti cw")
     GPIO.output(config.directionPinLeft, GPIO.LOW)
     GPIO.output(config.directionPinRight, GPIO.LOW)
 
-print(stepsNeeded)
+# print(stepsNeeded)
 
 
 
@@ -48,3 +48,6 @@ for steps in range(stepsNeeded):
 
 # disable stepper
 GPIO.output(config.enablePin, GPIO.LOW)
+
+# report success
+print("Success")

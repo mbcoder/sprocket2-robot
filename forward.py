@@ -6,7 +6,7 @@ import config
 steps1000mm = 1672 #3184
 
 distance = int(sys.argv[1])
-print(distance)
+# print(distance)
 
 stepsNeeded = abs(int((steps1000mm / 1000) * distance))
 
@@ -25,7 +25,7 @@ GPIO.output(config.enablePin, GPIO.HIGH)
 GPIO.output(config.directionPinLeft, GPIO.HIGH)
 GPIO.output(config.directionPinRight, GPIO.LOW)
 
-print(stepsNeeded)
+# print(stepsNeeded)
 
 # loop
 for steps in range(stepsNeeded):
@@ -36,3 +36,6 @@ for steps in range(stepsNeeded):
 
 # disable stepper
 GPIO.output(config.enablePin, GPIO.LOW)
+
+# return status
+print("Success")

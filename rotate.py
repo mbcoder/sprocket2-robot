@@ -4,7 +4,7 @@ from time import sleep
 import config
 import stepper
 
-steps360 = 1290
+steps360 = 1296
 
 angle = int(sys.argv[1])
 # print(angle)

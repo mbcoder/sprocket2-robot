@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 from time import sleep
 import config
 
-steps1000mm = 879 #3184
+steps1000mm = 1760 #3184
 
 distance = int(sys.argv[1])
 print(distance)

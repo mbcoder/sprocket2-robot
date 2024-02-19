@@ -45,7 +45,7 @@ public class CommandRunner {
     String responseBody;
 
     final List<String> commandList = new ArrayList<>();
-    commandList.add("python");
+    commandList.add("python3");
 
     try {
       // Expecting a command URL like  https://127.0.0.1:8080/testOne?forward=100

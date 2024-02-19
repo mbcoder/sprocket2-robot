@@ -57,9 +57,9 @@ public class CommandRunner {
         String commandParameter = null;
 
         if (command.equals("forward")) {
-          commandProcess = "forward-sim.py";
+          commandProcess = "forward.py";
         } else if (command.equals("rotate")) {
-          commandProcess = "rotate-sim.py";
+          commandProcess = "rotate.py";
         }
 
         if (commands[2].matches("^ *-?\\d+ *$")) {

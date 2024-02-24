@@ -34,11 +34,11 @@ currentDelay = 0.010
 def calc_step_delay(step):
     # ramp up?
     if step < rampLength:
-        currentDelay = currentDelay - increment
+        currentDelay -= increment
     else:
         # ramp down?
         if step > (stepsNeeded - rampLength):
-            currentDelay = currentDelay + increment
+            currentDelay += increment
         else:
             print("top speed")
     return currentDelay

@@ -62,16 +62,16 @@ public class App extends Application {
     Scene scene = new Scene(stackPane);
     stage.setScene(scene);
 
+    startServer(true);
 
+    //Button nonSslServer = new Button("Not SSL");
+    //nonSslServer.setOnAction((e) -> startServer(false));
 
-    Button nonSslServer = new Button("Not SSL");
-    nonSslServer.setOnAction((e) -> startServer(false));
+    //Button sslServer = new Button("SSL");
+    //sslServer.setOnAction((e) -> startServer(true));
 
-    Button sslServer = new Button("SSL");
-    sslServer.setOnAction((e) -> startServer(true));
-
-    hBox.getChildren().addAll(nonSslServer, sslServer);
-    stackPane.getChildren().add(hBox);
+    //hBox.getChildren().addAll(nonSslServer, sslServer);
+    //stackPane.getChildren().add(hBox);
 
   }
 

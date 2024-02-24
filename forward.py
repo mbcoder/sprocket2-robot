@@ -39,7 +39,8 @@ def calc_step_delay(step):
     else:
         # ramp down?
         if step > (stepsNeeded - rampLength):
-            currentDelay = minDelay
+            stepsFromEnd = stepsNeeded - step
+            currentDelay = startDelay - (stepsFromEnd*increment)
         else:
             currentDelay = minDelay
             print("top speed")

@@ -32,6 +32,7 @@ minDelay = 0.005
 increment = (startDelay - minDelay) / rampLength
 currentDelay = 0.010
 def calc_step_delay(step):
+    global currentDelay
     # ramp up?
     if step < rampLength:
         currentDelay -= increment

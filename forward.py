@@ -26,7 +26,19 @@ GPIO.output(config.directionPinLeft, GPIO.HIGH)
 GPIO.output(config.directionPinRight, GPIO.LOW)
 
 # function to ramp the motors up and down
+rampLength = 10
+startDelay = 0.010
+minDelay = 0.005
 def calc_step_delay(step):
+    # ramp up?
+    if step < rampLength:
+        print("ramp up")
+    else:
+        # ramp down?
+        if step > (stepsNeeded - rampLength):
+            print("ramp down")
+        else:
+            print("top speed")
     return 0.010
 
 # loop

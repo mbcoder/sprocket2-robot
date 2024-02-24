@@ -31,6 +31,7 @@ def calc_step_delay(step):
 
 # loop
 for steps in range(stepsNeeded):
+    print(steps)
     GPIO.output(config.pulsePin, GPIO.HIGH)
     sleep(0.010)
     GPIO.output(config.pulsePin, GPIO.LOW)

@@ -32,7 +32,6 @@ minDelay = 0.0025
 increment: float = (startDelay - minDelay) / (rampLength)
 #currentDelay = 0.010
 def calc_step_delay(step):
-
     # ramp up?
     if step < rampLength:
         currentDelay = startDelay - (step*increment)
@@ -42,14 +41,12 @@ def calc_step_delay(step):
             stepsFromEnd = stepsNeeded - step
             currentDelay = startDelay - (stepsFromEnd*increment)
         else:
+            # top speed
             currentDelay = minDelay
-            print("top speed")
-    print(currentDelay)
     return currentDelay
 
 # loop
 for steps in range(stepsNeeded):
-    print(steps)
     GPIO.output(config.pulsePin, GPIO.HIGH)
     sleep(calc_step_delay(steps))
     GPIO.output(config.pulsePin, GPIO.LOW)

@@ -25,7 +25,9 @@ GPIO.output(config.enablePin, GPIO.HIGH)
 GPIO.output(config.directionPinLeft, GPIO.HIGH)
 GPIO.output(config.directionPinRight, GPIO.LOW)
 
-# print(stepsNeeded)
+# function to ramp the motors up and down
+def calc_step_delay(step):
+    return 0.010
 
 # loop
 for steps in range(stepsNeeded):

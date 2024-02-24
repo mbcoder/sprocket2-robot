@@ -29,17 +29,19 @@ GPIO.output(config.directionPinRight, GPIO.LOW)
 rampLength = 10
 startDelay = 0.010
 minDelay = 0.005
+increment = (startDelay - minDelay) / rampLength
+currentDelay = 0.010
 def calc_step_delay(step):
     # ramp up?
     if step < rampLength:
-        print("ramp up")
+        currentDelay = currentDelay - increment
     else:
         # ramp down?
         if step > (stepsNeeded - rampLength):
-            print("ramp down")
+            currentDelay = currentDelay + increment
         else:
             print("top speed")
-    return 0.010
+    return currentDelay
 
 # loop
 for steps in range(stepsNeeded):
